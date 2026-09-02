@@ -3,230 +3,518 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Void Premium Chat</title>
+    <title>Chat App</title>
     <style>
-        * { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+        * { box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; margin: 0; padding: 0; }
+        
         body {
-            background-color: #0d0304;
+            background-color: #08070d;
             color: #ffffff;
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            margin: 0;
-            background-image: radial-gradient(circle at center, #ef0c1822 0%, #0d0304 80%);
-        }
-
-        .card {
-            background: #140507;
-            border: 1px solid #ef0c1844;
-            padding: 20px;
-            border-radius: 12px;
-            box-shadow: 0 0 20px rgba(239, 12, 24, 0.2);
-            width: 360px;
-            text-align: center;
-        }
-
-        .hidden { display: none; }
-
-        input {
-            width: 100%;
             padding: 10px;
-            margin: 8px 0;
-            background: #0d0304;
-            border: 1px solid #ef0c18;
-            color: white;
+        }
+
+        .hidden { display: none !important; }
+
+        /* AUTH CARD (JOIN US TODAY) */
+        .auth-card {
+            background: linear-gradient(180deg, #1b162b 0%, #120e1d 100%);
+            border: 1px solid #2d2447;
+            padding: 30px 20px;
+            border-radius: 28px;
+            width: 100%;
+            max-width: 360px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .logo-box {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #a855f7 0%, #7c3aed 100%);
+            border-radius: 16px;
+            margin: 0 auto 20px auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 0 20px rgba(168, 85, 247, 0.4);
+        }
+
+        .logo-icon {
+            width: 28px;
+            height: 28px;
+            border: 3px solid #ffffff;
             border-radius: 4px;
-            text-align: center;
+            transform: rotate(45deg);
         }
 
-        button {
+        .auth-title { font-size: 24px; font-weight: 700; margin-bottom: 8px; }
+        .auth-sub { font-size: 13px; color: #a098b8; margin-bottom: 24px; }
+
+        .input-field {
             width: 100%;
-            padding: 10px;
-            background: #ef0c18;
+            padding: 14px 16px;
+            margin-bottom: 12px;
+            background: #120e1c;
+            border: 1px solid #2a223f;
+            color: #ffffff;
+            border-radius: 12px;
+            font-size: 14px;
+            outline: none;
+        }
+
+        .input-field:focus { border-color: #9333ea; }
+
+        .btn-purple {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(90deg, #a855f7 0%, #7c3aed 100%);
             color: white;
             border: none;
-            font-weight: bold;
-            border-radius: 4px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 15px;
             cursor: pointer;
-            margin-top: 10px;
+            margin-top: 8px;
+            box-shadow: 0 4px 15px rgba(124, 58, 237, 0.3);
         }
 
-        button:hover { background: #b30812; }
-
-        .chat-box {
-            height: 220px;
-            border: 1px solid #ef0c1844;
-            background: #0d0304;
-            overflow-y: auto;
-            padding: 10px;
-            text-align: left;
-            margin: 10px 0;
-            border-radius: 4px;
-        }
-
-        .chat-msg {
-            margin-bottom: 8px;
+        .auth-switch {
             font-size: 13px;
-            word-wrap: break-word;
-        }
-
-        .chat-msg span {
-            color: #ef0c18;
-            font-weight: bold;
-        }
-
-        .tab-btn {
-            width: 48%;
+            color: #c084fc;
+            margin-top: 20px;
+            cursor: pointer;
+            text-decoration: none;
             display: inline-block;
-            background: #22080a;
-            border: 1px solid #ef0c18;
         }
 
-        .tab-btn.active { background: #ef0c18; }
+        /* MAIN APP PANEL */
+        .app-card {
+            background: #110c1d;
+            border: 1px solid #221a35;
+            border-radius: 28px;
+            width: 100%;
+            max-width: 400px;
+            padding: 16px;
+            min-height: 600px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* COVER & PROFILE HEADER */
+        .profile-header {
+            background: #1a1329;
+            border-radius: 20px;
+            overflow: hidden;
+            position: relative;
+            margin-bottom: 16px;
+            border: 1px solid #2a2040;
+        }
+
+        .cover-area {
+            height: 90px;
+            background: #251b3a;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        .btn-edit-cover {
+            position: absolute;
+            right: 12px;
+            bottom: 12px;
+            background: rgba(18, 14, 28, 0.8);
+            border: 1px solid #3b2d5a;
+            color: #ffffff;
+            font-size: 11px;
+            padding: 6px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .user-info-bar {
+            padding: 12px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .avatar-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            position: relative;
+        }
+
+        .avatar-box {
+            width: 48px;
+            height: 48px;
+            border-radius: 14px;
+            background: #2d2444;
+            overflow: hidden;
+            cursor: pointer;
+            border: 1px solid #3d305c;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .avatar-box img { width: 100%; height: 100%; object-fit: cover; }
+
+        .username-text { font-size: 16px; font-weight: 700; color: #ffffff; }
+        .status-dot { font-size: 12px; color: #22c55e; margin-top: 2px; }
+
+        .btn-signout {
+            background: #2a1120;
+            border: 1px solid #521b33;
+            color: #f43f5e;
+            padding: 6px 14px;
+            border-radius: 10px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        /* NAVIGATION TABS */
+        .nav-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 6px;
+            margin-bottom: 16px;
+        }
+
+        .tab-item {
+            background: #181126;
+            border: 1px solid #261b3b;
+            color: #a098b8;
+            padding: 10px 0;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 600;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        .tab-item.active {
+            background: #4c1d95;
+            border-color: #6d28d9;
+            color: #ffffff;
+        }
+
+        /* CONTENT DISPLAY AREA */
+        .content-body {
+            background: #0d0918;
+            border: 1px solid #1f1633;
+            border-radius: 18px;
+            padding: 16px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .chat-list {
+            height: 300px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .chat-bubble {
+            background: #181126;
+            padding: 8px 12px;
+            border-radius: 10px;
+            font-size: 13px;
+            border: 1px solid #231838;
+            max-width: 85%;
+        }
+
+        .chat-bubble .sender { color: #c084fc; font-weight: 600; margin-bottom: 2px; font-size: 11px; }
+
+        .chat-input-bar {
+            display: flex;
+            gap: 8px;
+            margin-top: 12px;
+        }
+
+        .chat-input-bar input {
+            flex-grow: 1;
+            background: #140d24;
+            border: 1px solid #291d45;
+            color: white;
+            padding: 10px;
+            border-radius: 10px;
+            font-size: 13px;
+            outline: none;
+        }
+
+        .chat-input-bar button {
+            background: #7c3aed;
+            color: white;
+            border: none;
+            padding: 0 16px;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .placeholder-text {
+            color: #6b7280;
+            font-size: 13px;
+            text-align: center;
+            margin-top: 40px;
+        }
     </style>
 
-    <!-- Firebase SDKs -->
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
 </head>
 <body>
 
-    <!-- 1. ENTER NAME ONLY PAGE -->
-    <div id="login-card" class="card">
-        <h2 style="color: #ef0c18; margin-bottom: 5px;">VOID CHAT</h2>
-        <p style="font-size: 12px; color: #aaa;">Maglagay lang ng pangalan para makapasok</p>
-        
-        <input type="text" id="usernameInput" placeholder="I-type ang iyong Pangalan..." required>
-        <button onclick="enterChat()">Pumasok sa Chat</button>
+    <div id="authScreen" class="auth-card">
+        <div class="logo-box">
+            <div class="logo-icon"></div>
+        </div>
+        <h2 class="auth-title" id="authTitle">Join Us Today</h2>
+        <p class="auth-sub" id="authSub">Fill in the details to get started with your account</p>
+
+        <input type="text" id="authUsername" class="input-field" placeholder="Username">
+        <input type="password" id="authPassword" class="input-field" placeholder="Password">
+
+        <button class="btn-purple" id="authBtn" onclick="handleAuth()">Create Account</button>
+        <div>
+            <a class="auth-switch" id="authToggle" onclick="toggleAuthMode()">Already have an account? Sign In</a>
+        </div>
     </div>
 
-    <!-- 2. MAIN CHAT PANEL -->
-    <div id="chat-card" class="card hidden">
-        <div style="display: flex; justify-content: space-between; align-items: center;">
-            <span id="userDisplay" style="color: #ef0c18; font-weight: bold;">User</span>
-            <button onclick="location.reload()" style="width: auto; padding: 4px 10px; font-size: 11px; margin: 0; background: #333;">Palitan Name</button>
+    <div id="appScreen" class="app-card hidden">
+        
+        <div class="profile-header">
+            <div class="cover-area" id="coverDisplay">
+                <button class="btn-edit-cover" onclick="document.getElementById('coverInput').click()">Edit Cover</button>
+                <input type="file" id="coverInput" accept="image/*" class="hidden" onchange="uploadImage(event, 'cover')">
+            </div>
+            <div class="user-info-bar">
+                <div class="avatar-container">
+                    <div class="avatar-box" onclick="document.getElementById('pfpInput').click()">
+                        <img id="pfpDisplay" src="https://via.placeholder.com/48/2d2444/ffffff?text=Avatar">
+                        <input type="file" id="pfpInput" accept="image/*" class="hidden" onchange="uploadImage(event, 'pfp')">
+                    </div>
+                    <div>
+                        <div class="username-text" id="displayUsername">username</div>
+                        <div class="status-dot">● Active</div>
+                    </div>
+                </div>
+                <button class="btn-signout" onclick="signOut()">Sign Out</button>
+            </div>
         </div>
 
-        <!-- Chat Tabs -->
-        <div style="margin: 15px 0 5px 0;">
-            <button class="tab-btn active" id="btnGlobal" onclick="switchTab('global')">Community</button>
-            <button class="tab-btn" id="btnPrivate" onclick="switchTab('private')">Private Chat</button>
+        <div class="nav-grid">
+            <button class="tab-item active" id="tab-community" onclick="switchTab('community')">Community</button>
+            <button class="tab-item" id="tab-live" onclick="switchTab('live')">Live Chat</button>
+            <button class="tab-item" id="tab-private" onclick="switchTab('private')">Private Chat</button>
+            <button class="tab-item" id="tab-requests" onclick="switchTab('requests')">Requests</button>
         </div>
 
-        <!-- Private Chat Target Name -->
-        <div id="privateTargetDiv" class="hidden">
-            <input type="text" id="targetUser" placeholder="Pangalan ng i-pi-PM..." onchange="loadPrivateChat()">
+        <div class="content-body">
+            
+            <div id="chatView">
+                <div id="privateTargetBox" class="hidden" style="margin-bottom: 10px;">
+                    <input type="text" id="privateTargetUser" class="input-field" placeholder="Target Username..." onchange="loadPrivateChat()">
+                </div>
+                <div class="chat-list" id="chatMessages"></div>
+            </div>
+
+            <div id="requestsView" class="hidden">
+                <p class="placeholder-text">No pending friend requests.</p>
+            </div>
+
+            <div class="chat-input-bar" id="inputBar">
+                <input type="text" id="messageInput" placeholder="Type a message...">
+                <button onclick="sendMessage()">Send</button>
+            </div>
+
         </div>
 
-        <!-- Messages Display -->
-        <div class="chat-box" id="chatDisplay"></div>
-
-        <!-- Message Input -->
-        <input type="text" id="chatMsgInput" placeholder="I-type ang mensahe...">
-        <button onclick="sendMessage()">Ipadala</button>
     </div>
 
     <script>
-        // Palitan ang URL na ito ng iyong sariling Firebase Realtime Database URL
+        // FIREBASE DATABASE CONFIGURATION
+        // Palitan ang URL na ito ng sarili mong Firebase Realtime Database URL
         const firebaseConfig = {
             databaseURL: "https://YOUR-DATABASE-NAME-default-rtdb.firebaseio.com/"
         };
-        
+
         if (!firebase.apps.length) {
             firebase.initializeApp(firebaseConfig);
         }
         const db = firebase.database();
 
+        let isSignUp = true;
         let currentUser = "";
-        let currentTab = 'global';
+        let currentTab = "community";
 
-        // ENTER SYSTEM
-        function enterChat() {
-            const name = document.getElementById('usernameInput').value.trim();
-            if (!name) {
-                alert("Maglagay muna ng pangalan!");
-                return;
-            }
-            currentUser = name;
-            document.getElementById('userDisplay').innerText = "@" + currentUser;
-            document.getElementById('login-card').classList.add('hidden');
-            document.getElementById('chat-card').classList.remove('hidden');
-            
-            loadGlobalChat();
+        // TOGGLE LOGIN / REGISTER
+        function toggleAuthMode() {
+            isSignUp = !isSignUp;
+            document.getElementById('authTitle').innerText = isSignUp ? "Join Us Today" : "Welcome Back";
+            document.getElementById('authSub').innerText = isSignUp ? "Fill in the details to get started with your account" : "Enter your credentials to access your account";
+            document.getElementById('authBtn').innerText = isSignUp ? "Create Account" : "Sign In";
+            document.getElementById('authToggle').innerText = isSignUp ? "Already have an account? Sign In" : "Don't have an account? Sign Up";
         }
 
-        // TAB SYSTEM
+        // AUTHENTICATION
+        function handleAuth() {
+            const user = document.getElementById('authUsername').value.trim();
+            const pass = document.getElementById('authPassword').value.trim();
+
+            if (!user || !pass) return alert("Please fill in all fields!");
+
+            const userRef = db.ref('users/' + user);
+
+            if (isSignUp) {
+                userRef.once('value', snapshot => {
+                    if (snapshot.exists()) {
+                        alert("Username already exists!");
+                    } else {
+                        userRef.set({ password: pass }, err => {
+                            if (!err) loginSuccess(user);
+                        });
+                    }
+                });
+            } else {
+                userRef.once('value', snapshot => {
+                    if (snapshot.exists() && snapshot.val().password === pass) {
+                        loginSuccess(user);
+                    } else {
+                        alert("Invalid Username or Password!");
+                    }
+                });
+            }
+        }
+
+        function loginSuccess(user) {
+            currentUser = user;
+            document.getElementById('displayUsername').innerText = currentUser;
+            document.getElementById('authScreen').classList.add('hidden');
+            document.getElementById('appScreen').classList.remove('hidden');
+            loadUserProfile();
+            switchTab('community');
+        }
+
+        function signOut() {
+            location.reload();
+        }
+
+        // NAVIGATION TABS
         function switchTab(tab) {
             currentTab = tab;
-            document.getElementById('chatDisplay').innerHTML = "";
-            if (tab === 'global') {
-                document.getElementById('btnGlobal').classList.add('active');
-                document.getElementById('btnPrivate').classList.remove('active');
-                document.getElementById('privateTargetDiv').classList.add('hidden');
+            const tabs = ['community', 'live', 'private', 'requests'];
+            tabs.forEach(t => document.getElementById('tab-' + t).classList.remove('active'));
+            document.getElementById('tab-' + tab).classList.add('active');
+
+            document.getElementById('chatView').classList.remove('hidden');
+            document.getElementById('requestsView').classList.add('hidden');
+            document.getElementById('inputBar').classList.remove('hidden');
+            document.getElementById('privateTargetBox').classList.add('hidden');
+
+            if (tab === 'community' || tab === 'live') {
                 loadGlobalChat();
-            } else {
-                document.getElementById('btnPrivate').classList.add('active');
-                document.getElementById('btnGlobal').classList.remove('active');
-                document.getElementById('privateTargetDiv').classList.remove('hidden');
+            } else if (tab === 'private') {
+                document.getElementById('privateTargetBox').classList.remove('hidden');
+                document.getElementById('chatMessages').innerHTML = "";
+            } else if (tab === 'requests') {
+                document.getElementById('chatView').classList.add('hidden');
+                document.getElementById('inputBar').classList.add('hidden');
+                document.getElementById('requestsView').classList.remove('hidden');
             }
         }
 
-        // LOAD COMMUNITY CHAT
+        // PROFILE & IMAGES
+        function uploadImage(event, type) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const imgData = e.target.result;
+                if (type === 'cover') {
+                    document.getElementById('coverDisplay').style.backgroundImage = `url(${imgData})`;
+                    db.ref('users/' + currentUser + '/cover').set(imgData);
+                } else {
+                    document.getElementById('pfpDisplay').src = imgData;
+                    db.ref('users/' + currentUser + '/pfp').set(imgData);
+                }
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function loadUserProfile() {
+            db.ref('users/' + currentUser).on('value', snapshot => {
+                const data = snapshot.val();
+                if (data) {
+                    if (data.pfp) document.getElementById('pfpDisplay').src = data.pfp;
+                    if (data.cover) document.getElementById('coverDisplay').style.backgroundImage = `url(${data.cover})`;
+                }
+            });
+        }
+
+        // MESSAGING SYSTEM
         function loadGlobalChat() {
             db.ref('global_chat').limitToLast(30).on('value', snapshot => {
-                const box = document.getElementById('chatDisplay');
+                const box = document.getElementById('chatMessages');
                 box.innerHTML = "";
                 snapshot.forEach(child => {
-                    const data = child.val();
-                    box.innerHTML += `<div class="chat-msg"><span>${data.sender}:</span> ${data.text}</div>`;
+                    const msg = child.val();
+                    box.innerHTML += `
+                        <div class="chat-bubble">
+                            <div class="sender">${msg.sender}</div>
+                            <div>${msg.text}</div>
+                        </div>`;
                 });
                 box.scrollTop = box.scrollHeight;
             });
         }
 
-        // LOAD PRIVATE CHAT
         function loadPrivateChat() {
-            const target = document.getElementById('targetUser').value.trim();
+            const target = document.getElementById('privateTargetUser').value.trim();
             if (!target) return;
 
-            const chatRoomId = [currentUser, target].sort().join("_");
-            db.ref('private_chats/' + chatRoomId).limitToLast(30).on('value', snapshot => {
-                const box = document.getElementById('chatDisplay');
+            const roomId = [currentUser, target].sort().join("_");
+            db.ref('private_chats/' + roomId).limitToLast(30).on('value', snapshot => {
+                const box = document.getElementById('chatMessages');
                 box.innerHTML = "";
                 snapshot.forEach(child => {
-                    const data = child.val();
-                    box.innerHTML += `<div class="chat-msg"><span>${data.sender}:</span> ${data.text}</div>`;
+                    const msg = child.val();
+                    box.innerHTML += `
+                        <div class="chat-bubble">
+                            <div class="sender">${msg.sender}</div>
+                            <div>${msg.text}</div>
+                        </div>`;
                 });
                 box.scrollTop = box.scrollHeight;
             });
         }
 
-        // SEND MESSAGE
         function sendMessage() {
-            const input = document.getElementById('chatMsgInput');
+            const input = document.getElementById('messageInput');
             const text = input.value.trim();
             if (!text) return;
 
-            if (currentTab === 'global') {
-                db.ref('global_chat').push({
-                    sender: currentUser,
-                    text: text
-                });
-            } else {
-                const target = document.getElementById('targetUser').value.trim();
-                if (!target) {
-                    alert("Ilagay muna ang pangalan ng kakausapin!");
-                    return;
-                }
-                const chatRoomId = [currentUser, target].sort().join("_");
-                db.ref('private_chats/' + chatRoomId).push({
-                    sender: currentUser,
-                    text: text
-                });
+            if (currentTab === 'community' || currentTab === 'live') {
+                db.ref('global_chat').push({ sender: currentUser, text: text });
+            } else if (currentTab === 'private') {
+                const target = document.getElementById('privateTargetUser').value.trim();
+                if (!target) return alert("Enter target username first!");
+                const roomId = [currentUser, target].sort().join("_");
+                db.ref('private_chats/' + roomId).push({ sender: currentUser, text: text });
             }
             input.value = "";
         }
     </script>
 </body>
-  </html>
+    </html>
