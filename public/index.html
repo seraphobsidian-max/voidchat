@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chat App - Red & Black Theme</title>
+    <title>Chat & Community App</title>
     <style>
         * { box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; margin: 0; padding: 0; }
         
@@ -98,9 +98,9 @@
             border: 1px solid #29080b;
             border-radius: 28px;
             width: 100%;
-            max-width: 400px;
+            max-width: 420px;
             padding: 16px;
-            min-height: 600px;
+            min-height: 650px;
             display: flex;
             flex-direction: column;
             position: relative;
@@ -205,7 +205,7 @@
             color: #ffffff;
         }
 
-        /* CHAT CONTENT AREA */
+        /* MAIN CONTENT DISPLAY AREA */
         .content-body {
             background: #0a0203;
             border: 1px solid #240608;
@@ -217,6 +217,7 @@
             justify-content: space-between;
         }
 
+        /* CHAT STYLES */
         .chat-list {
             height: 320px;
             overflow-y: auto;
@@ -243,18 +244,6 @@
         }
 
         .chat-bubble .sender { color: #f87171; font-weight: 600; margin-bottom: 2px; font-size: 11px; }
-
-        .reaction-badge {
-            position: absolute;
-            bottom: -10px;
-            right: 8px;
-            background: #2b080c;
-            border: 1px solid #570d13;
-            border-radius: 12px;
-            padding: 1px 5px;
-            font-size: 12px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.5);
-        }
 
         .chat-input-bar {
             display: flex;
@@ -283,7 +272,149 @@
             cursor: pointer;
         }
 
-        /* REACTION POPUP MENU */
+        /* COMMUNITY / FB FEED STYLES */
+        .community-feed {
+            height: 380px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            padding-right: 4px;
+        }
+
+        .post-creator {
+            background: #170507;
+            border: 1px solid #330a0e;
+            border-radius: 14px;
+            padding: 12px;
+            margin-bottom: 10px;
+        }
+
+        .post-creator textarea {
+            width: 100%;
+            height: 50px;
+            background: transparent;
+            border: none;
+            color: white;
+            resize: none;
+            font-size: 13px;
+            outline: none;
+        }
+
+        .post-creator-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 8px;
+            border-top: 1px solid #29080b;
+            padding-top: 8px;
+        }
+
+        .media-btn {
+            background: #2b080c;
+            border: 1px solid #570d13;
+            color: #f87171;
+            font-size: 11px;
+            padding: 6px 10px;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .btn-post {
+            background: #dc2626;
+            color: white;
+            border: none;
+            padding: 6px 16px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        /* POST CARD */
+        .post-card {
+            background: #140406;
+            border: 1px solid #2d090c;
+            border-radius: 14px;
+            padding: 12px;
+        }
+
+        .post-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 8px;
+        }
+
+        .post-author { font-size: 13px; font-weight: 700; color: #f87171; }
+        .post-time { font-size: 10px; color: #7f1d1d; }
+
+        .post-text { font-size: 13px; color: #ffffff; margin-bottom: 10px; line-height: 1.4; }
+
+        .post-media {
+            width: 100%;
+            max-height: 250px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #29080b;
+        }
+
+        /* FB REACT BAR */
+        .post-react-bar {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border-top: 1px solid #240608;
+            padding-top: 8px;
+            position: relative;
+        }
+
+        .react-btn-container {
+            position: relative;
+            display: inline-block;
+        }
+
+        .btn-react-trigger {
+            background: none;
+            border: none;
+            color: #a18a8c;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .fb-react-popover {
+            position: absolute;
+            bottom: 25px;
+            left: 0;
+            background: #2b080c;
+            border: 1px solid #7f1d1d;
+            border-radius: 20px;
+            padding: 4px 8px;
+            display: none;
+            gap: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.8);
+            z-index: 50;
+        }
+
+        .fb-react-popover span {
+            font-size: 18px;
+            cursor: pointer;
+            transition: transform 0.1s;
+        }
+
+        .fb-react-popover span:hover { transform: scale(1.3); }
+
+        .react-count-badge {
+            font-size: 11px;
+            color: #f87171;
+        }
+
+        /* REACTION POPUP FOR CHAT */
         .reaction-menu {
             position: absolute;
             top: -45px;
@@ -296,21 +427,21 @@
             gap: 8px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.8);
             z-index: 100;
-            animation: popup 0.15s ease-out;
         }
 
-        @keyframes popup {
-            from { opacity: 0; transform: scale(0.8) translateY(10px); }
-            to { opacity: 1; transform: scale(1) translateY(0); }
-        }
-
-        .reaction-emoji {
-            font-size: 18px;
-            cursor: pointer;
-            transition: transform 0.1s;
-        }
-
+        .reaction-emoji { font-size: 18px; cursor: pointer; transition: transform 0.1s; }
         .reaction-emoji:hover { transform: scale(1.3); }
+
+        .reaction-badge {
+            position: absolute;
+            bottom: -10px;
+            right: 8px;
+            background: #2b080c;
+            border: 1px solid #570d13;
+            border-radius: 12px;
+            padding: 1px 5px;
+            font-size: 12px;
+        }
 
         .placeholder-text {
             color: #7f1d1d;
@@ -371,18 +502,35 @@
 
         <div class="content-body">
             
-            <div id="chatView">
+            <!-- COMMUNITY FEED -->
+            <div id="communityView" class="community-feed">
+                <div class="post-creator">
+                    <textarea id="postContent" placeholder="What's on your mind?"></textarea>
+                    <div id="mediaPreview" style="margin-bottom: 8px;"></div>
+                    <div class="post-creator-actions">
+                        <button class="media-btn" onclick="document.getElementById('postMediaInput').click()">+ Photo/Video</button>
+                        <input type="file" id="postMediaInput" accept="image/*,video/*" class="hidden" onchange="handleMediaSelect(event)">
+                        <button class="btn-post" onclick="createPost()">Post</button>
+                    </div>
+                </div>
+                <div id="feedList"></div>
+            </div>
+
+            <!-- CHAT VIEW -->
+            <div id="chatView" class="hidden">
                 <div id="privateTargetBox" class="hidden" style="margin-bottom: 10px;">
                     <input type="text" id="privateTargetUser" class="input-field" placeholder="Target Username..." onchange="loadMessages()">
                 </div>
                 <div class="chat-list" id="chatMessages"></div>
             </div>
 
+            <!-- REQUESTS VIEW -->
             <div id="requestsView" class="hidden">
                 <p class="placeholder-text">No pending friend requests.</p>
             </div>
 
-            <div class="chat-input-bar" id="inputBar">
+            <!-- CHAT INPUT BAR -->
+            <div class="chat-input-bar hidden" id="inputBar">
                 <input type="text" id="messageInput" placeholder="Write a message..." onkeypress="if(event.key==='Enter') sendMessage()">
                 <button onclick="sendMessage()">Send</button>
             </div>
@@ -395,15 +543,32 @@
         let isSignUp = true;
         let currentUser = "";
         let currentTab = "community";
+        let pendingMedia = null;
+        let pendingMediaType = "";
         let longPressTimer = null;
         let activeReactionMenu = null;
 
-        // LOCAL STORAGE STORAGE KEYS
         const STORAGE_USERS = "app_users_red";
         const STORAGE_MESSAGES = "app_messages_red";
+        const STORAGE_POSTS = "app_posts_red";
 
-        // MOCK INITIAL DATA
+        // MOCK DATA INITIALIZATION
         function initData() {
+            if (!localStorage.getItem(STORAGE_POSTS)) {
+                const initialPosts = [
+                    {
+                        id: 101,
+                        author: "Ph.YuSh1n",
+                        text: "Welcome to our Red & Black Community! Feel free to share images and videos here.",
+                        media: "",
+                        mediaType: "",
+                        time: "Just now",
+                        reacts: { "👍": ["0xr1su"], "❤️": ["Ph.YuSh1n"] }
+                    }
+                ];
+                localStorage.setItem(STORAGE_POSTS, JSON.stringify(initialPosts));
+            }
+
             if (!localStorage.getItem(STORAGE_MESSAGES)) {
                 const initialMsgs = [
                     { id: 1, tab: "live", sender: "Ph.YuSh1n", text: "ghe out muna ako later kuna update css nito", reaction: "" },
@@ -456,12 +621,10 @@
             document.getElementById('authScreen').classList.add('hidden');
             document.getElementById('appScreen').classList.remove('hidden');
             loadUserProfile();
-            switchTab('live');
+            switchTab('community');
         }
 
-        function signOut() {
-            location.reload();
-        }
+        function signOut() { location.reload(); }
 
         function switchTab(tab) {
             currentTab = tab;
@@ -469,22 +632,28 @@
             tabs.forEach(t => document.getElementById('tab-' + t).classList.remove('active'));
             document.getElementById('tab-' + tab).classList.add('active');
 
-            document.getElementById('chatView').classList.remove('hidden');
+            document.getElementById('communityView').classList.add('hidden');
+            document.getElementById('chatView').classList.add('hidden');
             document.getElementById('requestsView').classList.add('hidden');
-            document.getElementById('inputBar').classList.remove('hidden');
+            document.getElementById('inputBar').classList.add('hidden');
             document.getElementById('privateTargetBox').classList.add('hidden');
 
-            if (tab === 'private') {
-                document.getElementById('privateTargetBox').classList.remove('hidden');
+            if (tab === 'community') {
+                document.getElementById('communityView').classList.remove('hidden');
+                loadPosts();
+            } else if (tab === 'live' || tab === 'private') {
+                document.getElementById('chatView').classList.remove('hidden');
+                document.getElementById('inputBar').classList.remove('hidden');
+                if (tab === 'private') {
+                    document.getElementById('privateTargetBox').classList.remove('hidden');
+                }
+                loadMessages();
             } else if (tab === 'requests') {
-                document.getElementById('chatView').classList.add('hidden');
-                document.getElementById('inputBar').classList.add('hidden');
                 document.getElementById('requestsView').classList.remove('hidden');
             }
-
-            loadMessages();
         }
 
+        // PROFILE PICTURE & COVER PHOTO
         function uploadImage(event, type) {
             const file = event.target.files[0];
             if (!file) return;
@@ -516,6 +685,137 @@
             }
         }
 
+        // COMMUNITY POST SYSTEM
+        function handleMediaSelect(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            pendingMediaType = file.type.startsWith('video') ? 'video' : 'image';
+            const reader = new FileReader();
+            reader.onload = function(evt) {
+                pendingMedia = evt.target.result;
+                const prev = document.getElementById('mediaPreview');
+                if (pendingMediaType === 'image') {
+                    prev.innerHTML = `<img src="${pendingMedia}" style="max-height:80px; border-radius:8px;">`;
+                } else {
+                    prev.innerHTML = `<video src="${pendingMedia}" style="max-height:80px; border-radius:8px;" controls></video>`;
+                }
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function createPost() {
+            const text = document.getElementById('postContent').value.trim();
+            if (!text && !pendingMedia) return alert("Write something or upload a photo/video!");
+
+            let posts = JSON.parse(localStorage.getItem(STORAGE_POSTS) || "[]");
+            const newPost = {
+                id: Date.now(),
+                author: currentUser,
+                text: text,
+                media: pendingMedia || "",
+                mediaType: pendingMediaType || "",
+                time: "Just now",
+                reacts: {}
+            };
+
+            posts.unshift(newPost);
+            localStorage.setItem(STORAGE_POSTS, JSON.stringify(posts));
+
+            // Reset Input
+            document.getElementById('postContent').value = "";
+            document.getElementById('mediaPreview').innerHTML = "";
+            pendingMedia = null;
+            pendingMediaType = "";
+
+            loadPosts();
+        }
+
+        function loadPosts() {
+            const feed = document.getElementById('feedList');
+            feed.innerHTML = "";
+            let posts = JSON.parse(localStorage.getItem(STORAGE_POSTS) || "[]");
+
+            posts.forEach(post => {
+                const card = document.createElement('div');
+                card.className = 'post-card';
+
+                let mediaHtml = '';
+                if (post.media) {
+                    if (post.mediaType === 'image') {
+                        mediaHtml = `<img src="${post.media}" class="post-media">`;
+                    } else if (post.mediaType === 'video') {
+                        mediaHtml = `<video src="${post.media}" class="post-media" controls></video>`;
+                    }
+                }
+
+                // Calculate React Counts
+                let totalReacts = 0;
+                let userReact = "React";
+                const reactionsList = post.reacts || {};
+                
+                for (let r in reactionsList) {
+                    totalReacts += reactionsList[r].length;
+                    if (reactionsList[r].includes(currentUser)) userReact = r;
+                }
+
+                card.innerHTML = `
+                    <div class="post-header">
+                        <div>
+                            <div class="post-author">${post.author}</div>
+                            <div class="post-time">${post.time}</div>
+                        </div>
+                    </div>
+                    ${post.text ? `<div class="post-text">${post.text}</div>` : ''}
+                    ${mediaHtml}
+                    <div class="post-react-bar">
+                        <div class="react-btn-container" onmouseleave="hideFbReacts(${post.id})">
+                            <button class="btn-react-trigger" onclick="toggleFbReactMenu(${post.id})">${userReact}</button>
+                            <div class="fb-react-popover" id="popover-${post.id}">
+                                <span onclick="addPostReact(${post.id}, '👍')">👍</span>
+                                <span onclick="addPostReact(${post.id}, '❤️')">❤️</span>
+                                <span onclick="addPostReact(${post.id}, '😆')">😆</span>
+                                <span onclick="addPostReact(${post.id}, '😢')">😢</span>
+                                <span onclick="addPostReact(${post.id}, '😡')">😡</span>
+                            </div>
+                        </div>
+                        <span class="react-count-badge">${totalReacts > 0 ? totalReacts + ' Reactions' : ''}</span>
+                    </div>
+                `;
+                feed.appendChild(card);
+            });
+        }
+
+        function toggleFbReactMenu(postId) {
+            const popover = document.getElementById(`popover-${postId}`);
+            popover.style.display = popover.style.display === 'flex' ? 'none' : 'flex';
+        }
+
+        function hideFbReacts(postId) {
+            const popover = document.getElementById(`popover-${postId}`);
+            if (popover) popover.style.display = 'none';
+        }
+
+        function addPostReact(postId, emoji) {
+            let posts = JSON.parse(localStorage.getItem(STORAGE_POSTS) || "[]");
+            const idx = posts.findIndex(p => p.id === postId);
+            if (idx !== -1) {
+                if (!posts[idx].reacts) posts[idx].reacts = {};
+
+                // Remove user's old reaction if any
+                for (let r in posts[idx].reacts) {
+                    posts[idx].reacts[r] = posts[idx].reacts[r].filter(u => u !== currentUser);
+                }
+
+                if (!posts[idx].reacts[emoji]) posts[idx].reacts[emoji] = [];
+                posts[idx].reacts[emoji].push(currentUser);
+
+                localStorage.setItem(STORAGE_POSTS, JSON.stringify(posts));
+            }
+            loadPosts();
+        }
+
+        // MESSAGING SYSTEM
         function loadMessages() {
             closeReactionMenu();
             const box = document.getElementById('chatMessages');
@@ -544,7 +844,6 @@
                     ${msg.reaction ? `<div class="reaction-badge">${msg.reaction}</div>` : ''}
                 `;
 
-                // Long Press Handlers
                 bubble.addEventListener('touchstart', (e) => startLongPress(e, msg.id, container));
                 bubble.addEventListener('touchend', endLongPress);
                 bubble.addEventListener('mousedown', (e) => startLongPress(e, msg.id, container));
@@ -584,11 +883,9 @@
             loadMessages();
         }
 
-        // EMOJI REACTION FUNCTIONS
+        // LONG PRESS REACTION FOR CHAT
         function startLongPress(event, msgId, container) {
-            longPressTimer = setTimeout(() => {
-                showReactionMenu(msgId, container);
-            }, 500); // 500ms long press
+            longPressTimer = setTimeout(() => { showReactionMenu(msgId, container); }, 500);
         }
 
         function endLongPress() {
@@ -597,7 +894,6 @@
 
         function showReactionMenu(msgId, container) {
             closeReactionMenu();
-
             const menu = document.createElement('div');
             menu.className = 'reaction-menu';
             
@@ -631,12 +927,6 @@
             closeReactionMenu();
             loadMessages();
         }
-
-        document.addEventListener('click', (e) => {
-            if (activeReactionMenu && !activeReactionMenu.contains(e.target) && !e.target.classList.contains('chat-bubble')) {
-                closeReactionMenu();
-            }
-        });
     </script>
 </body>
     </html>
